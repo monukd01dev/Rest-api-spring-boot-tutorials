@@ -29,22 +29,26 @@ public class BookService {
         return bookList;
     }
 
-    public Book getBook(int id) {
-        Book book = new Book();
-        book = bookList.stream().filter(e -> e.getId() == id).findFirst().get();
+    public Book getBook(int id) throws Exception{
+        Book book = null;
+        try {
+            book = bookList.stream().filter(e -> e.getId() == id).findFirst().get();
+        } catch (Exception e) {
+            return book;
+        }
         return book;
     }
 
-    public Book addBook(Book book) {
+    public Book addBook(Book book) throws Exception{
         bookList.add(book);
         return book;
     }
 
-    public void deleteBook(int id) {
+    public void deleteBook(int id) throws Exception{
         bookList = bookList.stream().filter(e->e.getId() != id).collect(Collectors.toList());
     }
 
-    public void updateBook(Book book, int bid) {
+    public void updateBook(Book book, int bid) throws Exception{
         bookList = bookList.stream().map(book1->{
             if(book1.getId() == bid) {
                 book1.setAuthor(book.getAuthor());
